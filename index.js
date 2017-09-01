@@ -18,8 +18,8 @@ var overrideFolder = './base/fragments/' + override
 var packerTemplate;
 var overrides;
 
-console.log('Opening template ' + templateValue + '.json')
-if (override){console.log('  -Using override ' + override)}
+// console.log('Opening template ' + templateValue + '.json')
+// if (override){console.log('  -Using override ' + override)}
 
 fs.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 .then(JSON.parse)
@@ -41,15 +41,27 @@ fs.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 	)
 })
 .then((overrideTypes)=>{
-
-	overrideTypes.forEach((overRideType)=>{
-		fs.readFile(overrideFolder + overRideType + '.json' )
-		.then((data)=>{
-			packerTemplate[overRideType] = data;
-			debugger
+	return Promise.all(
+		overrideTypes.map((overrideType)=>{
+			return fs.readFile(overrideFolder + '/' +  overrideType + '.json')
+			.then(JSON.parse)
+			.then((overrideTypeData)=>{
+				if (packerTemplate[overrideType]) {
+					if (Array.isArray(overrideTypeData)) {
+						overrideTypeData.forEach((element)=>{
+							packerTemplate[overrideType].push(element)
+						})
+					} else {
+						packerTemplate[overrideType] = _.merge(packerTemplate[overrideType],overrideTypeData)
+					}
+				} else {
+					packerTemplate[overrideType] = overrideTypeData
+				}
+			})
 		})
-	})
-
+	)
+})
+.then(()=>{
 	return packerTemplate
 })
 .then(JSON.stringify)

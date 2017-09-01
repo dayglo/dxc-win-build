@@ -1,4 +1,4 @@
-{
+[{
     "type": "vsphere",
     "only": ["vmware-iso"],
     "host": "{{ user `vcenter-host` }}",
@@ -12,4 +12,4 @@
     "vm_folder": "{{ user `vcenter-vm_folder` }}",
     "vm_network": "{{ user `vcenter-vm_network` }}",
     "insecure": "{{ user `vcenter-vm_network` }}"
-  }
+  }]
