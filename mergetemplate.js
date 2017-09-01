@@ -62,7 +62,9 @@ fs.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 	)
 })
 .then(()=>{
-	return packerTemplate
+	var templateName = 'dxc-' + templateValue + '.json' 
+	var templateFullPath = './base/lib/packer-windows/' + templateName
+	fs.writeFile(templateFullPath,packerTemplate)
 })
 .then(JSON.stringify)
 .then(console.log)
