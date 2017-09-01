@@ -1,0 +1,15 @@
+{
+    "type": "vsphere",
+    "only": ["vmware-iso"],
+    "host": "{{ user `vcenter-host` }}",
+    "cluster": "{{ user `vcenter-cluster` }}",
+    "datacenter": "{{ user `vcenter-datacenter` }}",
+    "datastore": "{{ user `vcenter-datastore` }}",
+    "username": "{{ user `vcenter-username` }}",
+    "password": "{{ user `vcenter-password` }}",
+    "vm_name": "{{ user `vcenter-vm_name` }}",
+    "disk_mode": "{{ user `vcenter-disk_mode` }}",
+    "vm_folder": "{{ user `vcenter-vm_folder` }}",
+    "vm_network": "{{ user `vcenter-vm_network` }}",
+    "insecure": "{{ user `vcenter-vm_network` }}"
+  }

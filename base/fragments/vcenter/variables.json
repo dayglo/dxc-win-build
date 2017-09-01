@@ -1,0 +1,13 @@
+{   
+    "vcenter-host": "",
+    "vcenter-cluster": "",
+    "vcenter-datacenter": "",
+    "vcenter-datastore": "",
+    "vcenter-username": "",
+    "vcenter-password": "",
+    "vcenter-vm_name": "",
+    "vcenter-disk_mode": "",
+    "vcenter-vm_folder": "",
+    "vcenter-vm_network": "",
+    "vcenter-insecure" : ""
+}
