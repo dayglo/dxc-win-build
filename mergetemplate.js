@@ -2,7 +2,7 @@
 var _ = require('lodash');
 var program = require('commander');
 var promisify = require('promisify-node');
-var fs = promisify("fs");
+var fsp = promisify("fs");
 
 program
 	.version('0.0.1')
@@ -21,7 +21,7 @@ var overrides;
 // console.log('Opening template ' + templateValue + '.json')
 // if (override){console.log('  -Using override ' + override)}
 
-fs.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
+fsp.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 .then(JSON.parse)
 .then((packerTemplateJSON)=>{
 	packerTemplate = packerTemplateJSON
@@ -43,7 +43,7 @@ fs.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 .then((overrideTypes)=>{
 	return Promise.all(
 		overrideTypes.map((overrideType)=>{
-			return fs.readFile(overrideFolder + '/' +  overrideType + '.json')
+			return fsp.readFile(overrideFolder + '/' +  overrideType + '.json')
 			.then(JSON.parse)
 			.then((overrideTypeData)=>{
 				if (packerTemplate[overrideType]) {
@@ -62,11 +62,13 @@ fs.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 	)
 })
 .then(()=>{
+
 	var templateName = ['dxc' , templateValue , override].join('-') + '.json' 
 	var templateFullPath = './base/lib/packer-windows/' + templateName
 	return fs.writeFile(templateFullPath, JSON.stringify(packerTemplate, null, 4))
 	.then(()=>{
 		console.log(templateFullPath)
 	})
+
 })
 .catch(console.error)
