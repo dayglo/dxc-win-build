@@ -2,7 +2,7 @@
 var _ = require('lodash');
 var program = require('commander');
 var promisify = require('promisify-node');
-var fsp = promisify("fs");
+var fs = promisify("fs");
 
 program
 	.version('0.0.1')
@@ -21,7 +21,7 @@ var overrides;
 // console.log('Opening template ' + templateValue + '.json')
 // if (override){console.log('  -Using override ' + override)}
 
-fsp.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
+fs.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 .then(JSON.parse)
 .then((packerTemplateJSON)=>{
 	packerTemplate = packerTemplateJSON
@@ -43,7 +43,7 @@ fsp.readFile('./base/lib/packer-windows/' + templateValue + '.json' )
 .then((overrideTypes)=>{
 	return Promise.all(
 		overrideTypes.map((overrideType)=>{
-			return fsp.readFile(overrideFolder + '/' +  overrideType + '.json')
+			return fs.readFile(overrideFolder + '/' +  overrideType + '.json')
 			.then(JSON.parse)
 			.then((overrideTypeData)=>{
 				if (packerTemplate[overrideType]) {
