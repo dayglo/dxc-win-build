@@ -4,17 +4,18 @@ var program = require('commander');
 var promisify = require('promisify-node');
 var fs = promisify("fs");
 var path = require('path');
+const util = require('util');
 
 program
 	.version('0.0.1')
 	.usage("<path to source template> [-o override]")
 	.arguments('<template>')
 	.action((template)=>{templatePath = template})
-	.option('-o, --override [type]', 'which template override to use [vcenter]', 'vcenter')
+	.option('-o, --override [type]', 'which template override to use [overrides/vcenter]', 'overrides/vcenter')
 	.parse(process.argv);
 
 var override = program.override;
-var overrideFolder = './overrides/' + override
+var overrideFolder = override
 
 var packerTemplate;
 var overrides;
@@ -60,16 +61,18 @@ fs.readFile(templatePath)
 	)
 })
 .then(()=>{
+	return JSON.stringify(packerTemplate, null, 4)
 
-	var templateName = path.basename(templatePath, '.json');
-	var templateFolder = path.dirname(templatePath);
+	// var templateName = path.basename(templatePath, '.json');
+	// var templateFolder = path.dirname(templatePath);
 
-	var newTemplateName = ['dxc' , templateName , override].join('-') + '.json' ;
-	var newTemplateFullPath = templateFolder + '/' + newTemplateName;
-	return fs.writeFile(newTemplateFullPath, JSON.stringify(packerTemplate, null, 4))
-	.then(()=>{
-		console.log(newTemplateFullPath)
-	})
+	// var newTemplateName = ['dxc' , templateName , override].join('-') + '.json' ;
+	// var newTemplateFullPath = templateFolder + '/' + newTemplateName;
+	// return fs.writeFile(newTemplateFullPath, JSON.stringify(packerTemplate, null, 4))
+	// .then(()=>{
+	// 	console.log(newTemplateFullPath)
+	// })
 
 })
+.then(console.log)
 .catch(console.error)

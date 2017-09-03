@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Install software from windows packer manager (choco)
+      win_chocolatey:
+        name: "{{ item }}"
+      with_items:
+        - packer
+        - git
+        - jq
+        - sublimetext3
+        - sublimetext3.packagecontrol
+        - sublimetext3.powershellalias
+
+
+# still need to install 
+# - https://github.com/jetbrains-infra/packer-builder-vsphere/releases to  %APPDATA%/packer.d/plugin
+# - ovftool
+# - govc
