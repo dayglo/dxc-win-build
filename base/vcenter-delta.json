@@ -11,7 +11,7 @@
     "vcenter-vm_folder": "",
     "vcenter-vm_network": "",
     "vcenter-insecure" : "false",
-    "guest-password" : ""
+    "guest-password" : "vagrant"
   },
   "builders": [
     {

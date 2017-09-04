@@ -1,0 +1,5 @@
+{
+	"vcenter-inputTemplate":"DXC-WINDOWS10-TEMPLATE",
+	"vcenter-outputTemplate":"DXC-WINDOWS10-DEVMACHINE-TEMPLATE",
+	"guest_password" : "vagrant"
+}
